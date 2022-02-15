@@ -1,0 +1,608 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\title{MovieLens Capstone}
+\author{Edy Susanto}
+\date{2022-02-15}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={MovieLens Capstone},
+  pdfauthor={Edy Susanto},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+\hypertarget{background}{%
+\subsection{Background}\label{background}}
+
+This capstone project is an exploration of a MovieLens dataset that
+tries to help find movies for users based on ratings that others have
+left for movies. We experiment with creating a recommendation system,
+that will minimize the RMSE score. and then extracting new features from
+the data to try and get better predictions.
+
+\hypertarget{preparation}{%
+\subsection{Preparation}\label{preparation}}
+
+The First Step is downloading and building the Movie Lens data set:
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.5     v purrr   0.3.4
+## v tibble  3.1.6     v dplyr   1.0.8
+## v tidyr   1.2.0     v stringr 1.4.0
+## v readr   2.1.2     v forcats 0.5.1
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: lattice
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'caret'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:purrr':
+## 
+##     lift
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'data.table'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:dplyr':
+## 
+##     between, first, last
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:purrr':
+## 
+##     transpose
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'lubridate'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:data.table':
+## 
+##     hour, isoweek, mday, minute, month, quarter, second, wday, week,
+##     yday, year
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     date, intersect, setdiff, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#  load data:}
+\NormalTok{dl }\OtherTok{\textless{}{-}} \FunctionTok{tempfile}\NormalTok{()}
+\FunctionTok{download.file}\NormalTok{(}\StringTok{"http://files.grouplens.org/datasets/movielens/ml{-}10m.zip"}\NormalTok{, dl)}
+
+\NormalTok{ratings }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\AttributeTok{text =} \FunctionTok{gsub}\NormalTok{(}\StringTok{"::"}\NormalTok{, }\StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{"}\NormalTok{, }\FunctionTok{readLines}\NormalTok{(}\FunctionTok{unzip}\NormalTok{(dl, }\StringTok{"ml{-}10M100K/ratings.dat"}\NormalTok{))), }\AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"userId"}\NormalTok{, }\StringTok{"movieId"}\NormalTok{, }\StringTok{"rating"}\NormalTok{, }\StringTok{"timestamp"}\NormalTok{))}
+
+\NormalTok{movies }\OtherTok{\textless{}{-}} \FunctionTok{str\_split\_fixed}\NormalTok{(}\FunctionTok{readLines}\NormalTok{(}\FunctionTok{unzip}\NormalTok{(dl, }\StringTok{"ml{-}10M100K/movies.dat"}\NormalTok{)), }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{::"}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(movies) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"movieId"}\NormalTok{, }\StringTok{"title"}\NormalTok{, }\StringTok{"genres"}\NormalTok{)}
+
+\CommentTok{\# using R 4.0:}
+\NormalTok{movies }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(movies) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{movieId =} \FunctionTok{as.numeric}\NormalTok{(movieId), }\AttributeTok{title =} \FunctionTok{as.character}\NormalTok{(title), }\AttributeTok{genres =} \FunctionTok{as.character}\NormalTok{(genres))}
+
+\NormalTok{movielens }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(ratings, movies, }\AttributeTok{by =} \StringTok{"movieId"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The Second Step, split the dataset into a training and validation sets:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{) }
+\NormalTok{  test\_index }\OtherTok{\textless{}{-}} \FunctionTok{createDataPartition}\NormalTok{(}\AttributeTok{y =}\NormalTok{ movielens}\SpecialCharTok{$}\NormalTok{rating, }\AttributeTok{times =} \DecValTok{1}\NormalTok{, }\AttributeTok{p =} \FloatTok{0.1}\NormalTok{, }\AttributeTok{list =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{  edx }\OtherTok{\textless{}{-}}\NormalTok{ movielens[}\SpecialCharTok{{-}}\NormalTok{test\_index,]}
+\NormalTok{  temp }\OtherTok{\textless{}{-}}\NormalTok{ movielens[test\_index,]}
+  
+\NormalTok{  validation }\OtherTok{\textless{}{-}}\NormalTok{ temp }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{semi\_join}\NormalTok{(edx, }\AttributeTok{by =} \StringTok{"movieId"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{semi\_join}\NormalTok{(edx, }\AttributeTok{by =} \StringTok{"userId"}\NormalTok{)}
+  
+\NormalTok{  removed }\OtherTok{\textless{}{-}} \FunctionTok{anti\_join}\NormalTok{(temp, validation)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Joining, by = c("userId", "movieId", "rating", "timestamp", "title", "genres")
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{  edx }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(edx, removed)}
+  
+  \FunctionTok{rm}\NormalTok{(dl, ratings, movies, test\_index, temp, movielens, removed)}
+\end{Highlighting}
+\end{Shaded}
+
+The Third Step , preview of the training set ``edx'':
+
+\begin{verbatim}
+##    userId movieId rating timestamp                         title
+## 1:      1     122      5 838985046              Boomerang (1992)
+## 2:      1     185      5 838983525               Net, The (1995)
+## 3:      1     231      5 838983392          Dumb & Dumber (1994)
+## 4:      1     292      5 838983421               Outbreak (1995)
+## 5:      1     316      5 838983392               Stargate (1994)
+## 6:      1     329      5 838983392 Star Trek: Generations (1994)
+##                           genres
+## 1:                Comedy|Romance
+## 2:         Action|Crime|Thriller
+## 3:                        Comedy
+## 4:  Action|Drama|Sci-Fi|Thriller
+## 5:       Action|Adventure|Sci-Fi
+## 6: Action|Adventure|Drama|Sci-Fi
+\end{verbatim}
+
+The Four Step , preview characteristics of the training set:
+
+\begin{verbatim}
+## Classes 'data.table' and 'data.frame':   9000061 obs. of  6 variables:
+##  $ userId   : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ movieId  : num  122 185 231 292 316 329 355 356 362 364 ...
+##  $ rating   : num  5 5 5 5 5 5 5 5 5 5 ...
+##  $ timestamp: int  838985046 838983525 838983392 838983421 838983392 838983392 838984474 838983653 838984885 838983707 ...
+##  $ title    : chr  "Boomerang (1992)" "Net, The (1995)" "Dumb & Dumber (1994)" "Outbreak (1995)" ...
+##  $ genres   : chr  "Comedy|Romance" "Action|Crime|Thriller" "Comedy" "Action|Drama|Sci-Fi|Thriller" ...
+##  - attr(*, ".internal.selfref")=<externalptr>
+\end{verbatim}
+
+\hypertarget{exploration-dataset}{%
+\subsection{Exploration Dataset}\label{exploration-dataset}}
+
+The data set is comprised of 9000055 rows and 6 columns.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dim}\NormalTok{(edx)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 9000061       6
+\end{verbatim}
+
+The data set is comprised of 10677 unique movies.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{n\_distinct}\NormalTok{(edx}\SpecialCharTok{$}\NormalTok{movieId)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10677
+\end{verbatim}
+
+The data set is comprised of 69878 unique users
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{n\_distinct}\NormalTok{(edx}\SpecialCharTok{$}\NormalTok{userId)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 69878
+\end{verbatim}
+
+Total number of ratings calculation 69878 * 10677 = 746087406.. Not
+every user rates every movie.
+
+\hypertarget{analysis}{%
+\subsection{Analysis}\label{analysis}}
+
+We will try to extract the release date to calculate the age of every
+movie in the dataset. This new dataset will be used to analyze whether
+movie age affects ratings.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# create the new\_edx data frame adn convert to timestamp format}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\NormalTok{edx }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(edx, }\AttributeTok{year\_rated =} \FunctionTok{year}\NormalTok{(}\FunctionTok{as\_datetime}\NormalTok{(timestamp)))}
+\NormalTok{release }\OtherTok{\textless{}{-}}\NormalTok{ stringi}\SpecialCharTok{::}\FunctionTok{stri\_extract}\NormalTok{(edx}\SpecialCharTok{$}\NormalTok{title, }\AttributeTok{regex =} \StringTok{"(}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})"}\NormalTok{, }\AttributeTok{comments =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{()}
+\NormalTok{new\_edx }\OtherTok{\textless{}{-}}\NormalTok{ edx }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{release\_date =}\NormalTok{ release) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{timestamp)}
+\end{Highlighting}
+\end{Shaded}
+
+Eliminate the incorrect release dates before 1900 in the 10M Movie Lens
+data set:
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'movieId', 'title'. You can override using
+## the `.groups` argument.
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 8 x 4
+## # Groups:   movieId, title [8]
+##   movieId title                                               release_date     n
+##     <dbl> <chr>                                                      <dbl> <int>
+## 1    1422 Murder at 1600 (1997)                                       1600  1552
+## 2    4311 Bloody Angels (1732 HÃ¸tten: Marerittet Har et Pos~         1732     8
+## 3    5472 1776 (1972)                                                 1776   184
+## 4    6290 House of 1000 Corpses (2003)                                1000   371
+## 5    6645 THX 1138 (1971)                                             1138   467
+## 6    8198 1000 Eyes of Dr. Mabuse, The (Tausend Augen des Dr~         1000    26
+## 7    8905 1492: Conquest of Paradise (1992)                           1492   141
+## 8   53953 1408 (2007)                                                 1408   465
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# view and correct the incorrect release dates outside of the ranges}
+\NormalTok{new\_edx }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(release\_date }\SpecialCharTok{\textless{}} \DecValTok{1900}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(movieId, title, release\_date) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'movieId', 'title'. You can override using
+## the `.groups` argument.
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 8 x 4
+## # Groups:   movieId, title [8]
+##   movieId title                                               release_date     n
+##     <dbl> <chr>                                                      <dbl> <int>
+## 1    1422 Murder at 1600 (1997)                                       1600  1552
+## 2    4311 Bloody Angels (1732 HÃ¸tten: Marerittet Har et Pos~         1732     8
+## 3    5472 1776 (1972)                                                 1776   184
+## 4    6290 House of 1000 Corpses (2003)                                1000   371
+## 5    6645 THX 1138 (1971)                                             1138   467
+## 6    8198 1000 Eyes of Dr. Mabuse, The (Tausend Augen des Dr~         1000    26
+## 7    8905 1492: Conquest of Paradise (1992)                           1492   141
+## 8   53953 1408 (2007)                                                 1408   465
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"4311"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1998}
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"5472"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1972}
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"6290"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{2003}
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"6645"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1971}
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"8198"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1960}
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"8905"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1992}
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"53953"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{2007}
+\end{Highlighting}
+\end{Shaded}
+
+Eliminate the incorrect release dates after 2000 in the 10M Movie Lens
+data set:
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'movieId', 'title'. You can override using
+## the `.groups` argument.
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+## # Groups:   movieId, title [6]
+##   movieId title                                          release_date     n
+##     <dbl> <chr>                                                 <dbl> <int>
+## 1     671 Mystery Science Theater 3000: The Movie (1996)         3000  3266
+## 2    2308 Detroit 9000 (1973)                                    9000    22
+## 3    4159 3000 Miles to Graceland (2001)                         3000   714
+## 4    5310 Transylvania 6-5000 (1985)                             5000   197
+## 5    8864 Mr. 3000 (2004)                                        3000   155
+## 6   27266 2046 (2004)                                            2046   422
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# view and correct the incorrect release dates outside of the ranges}
+\NormalTok{new\_edx }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(release\_date }\SpecialCharTok{\textgreater{}} \DecValTok{2020}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(movieId, title, release\_date) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'movieId', 'title'. You can override using
+## the `.groups` argument.
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+## # Groups:   movieId, title [6]
+##   movieId title                                          release_date     n
+##     <dbl> <chr>                                                 <dbl> <int>
+## 1     671 Mystery Science Theater 3000: The Movie (1996)         3000  3266
+## 2    2308 Detroit 9000 (1973)                                    9000    22
+## 3    4159 3000 Miles to Graceland (2001)                         3000   714
+## 4    5310 Transylvania 6-5000 (1985)                             5000   197
+## 5    8864 Mr. 3000 (2004)                                        3000   155
+## 6   27266 2046 (2004)                                            2046   422
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"27266"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{2004}
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"671"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1996}
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"2308"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1973}
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"4159"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{2001}
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"5310"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1985}
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"8864"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{2004}
+\NormalTok{new\_edx[new\_edx}\SpecialCharTok{$}\NormalTok{movieId }\SpecialCharTok{==} \StringTok{"1422"}\NormalTok{, }\StringTok{"release\_date"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1997}
+\end{Highlighting}
+\end{Shaded}
+
+Calculate the true age of the move:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{new\_edx }\OtherTok{\textless{}{-}}\NormalTok{ new\_edx }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{age\_movie =} \DecValTok{2020} \SpecialCharTok{{-}}\NormalTok{ release\_date, }\AttributeTok{rating\_age =}\NormalTok{ year\_rated }\SpecialCharTok{{-}}\NormalTok{ release\_date)}
+\end{Highlighting}
+\end{Shaded}
+
+Preview of the updated training set:
+
+\begin{verbatim}
+##    userId movieId rating                         title
+## 1:      1     122      5              Boomerang (1992)
+## 2:      1     185      5               Net, The (1995)
+## 3:      1     231      5          Dumb & Dumber (1994)
+## 4:      1     292      5               Outbreak (1995)
+## 5:      1     316      5               Stargate (1994)
+## 6:      1     329      5 Star Trek: Generations (1994)
+##                           genres year_rated release_date age_movie rating_age
+## 1:                Comedy|Romance       1996         1992        28          4
+## 2:         Action|Crime|Thriller       1996         1995        25          1
+## 3:                        Comedy       1996         1994        26          2
+## 4:  Action|Drama|Sci-Fi|Thriller       1996         1995        25          1
+## 5:       Action|Adventure|Sci-Fi       1996         1994        26          2
+## 6: Action|Adventure|Drama|Sci-Fi       1996         1994        26          2
+\end{verbatim}
+
+\hypertarget{visulization}{%
+\subsection{Visulization}\label{visulization}}
+
+Plot relationship between movie rating and movie age averages:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{movie\_avg }\OtherTok{\textless{}{-}}\NormalTok{ new\_edx }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(movieId) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarize}\NormalTok{(}\AttributeTok{movie\_rating\_averages =} \FunctionTok{mean}\NormalTok{(rating))}
+\NormalTok{age\_avg }\OtherTok{\textless{}{-}}\NormalTok{ new\_edx }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(age\_movie) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarize}\NormalTok{(}\AttributeTok{age\_rating\_averages =} \FunctionTok{mean}\NormalTok{(rating))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{age\_avg }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(age\_rating\_averages, age\_movie)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color=}\NormalTok{age\_movie)) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Movie Ratings VS Age of a Movie"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MovieLens-Final_files/figure-latex/plot_movie_avgs-1.pdf}
+The Average movie rating increases as the age of a movie increases, with
+a few outliers for movies over a 100 years old.
+
+We will also explore the relationship between the user and the average
+age of the user:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{user\_avg }\OtherTok{\textless{}{-}}\NormalTok{ new\_edx }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(userId) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarize}\NormalTok{(}\AttributeTok{user\_averages =} \FunctionTok{mean}\NormalTok{(rating))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{user\_avg }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(user\_averages, userId)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha=}\FloatTok{0.05}\NormalTok{, }\AttributeTok{color=}\StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"User ratings VS Number of Users"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MovieLens-Final_files/figure-latex/plot_user_avgs-1.pdf}
+
+As shown in the plot, the average user rating across all different users
+is saturated around a rating between of 3 and 4.
+
+\hypertarget{outcomes}{%
+\subsection{Outcomes}\label{outcomes}}
+
+RMSE function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rmse\_function }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(true, predicted)\{}
+  \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{((true }\SpecialCharTok{{-}}\NormalTok{ predicted)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Lambda Function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lambdas }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{5}\NormalTok{,.}\DecValTok{5}\NormalTok{)}
+\NormalTok{rmses }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(lambdas, }\ControlFlowTok{function}\NormalTok{(l)\{}
+\NormalTok{  mu }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(new\_edx}\SpecialCharTok{$}\NormalTok{rating)}
+  
+\NormalTok{  b\_i }\OtherTok{\textless{}{-}}\NormalTok{ new\_edx }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{group\_by}\NormalTok{(movieId) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{summarize}\NormalTok{(}\AttributeTok{b\_i =} \FunctionTok{sum}\NormalTok{(rating }\SpecialCharTok{{-}}\NormalTok{ mu)}\SpecialCharTok{/}\NormalTok{(}\FunctionTok{n}\NormalTok{() }\SpecialCharTok{+}\NormalTok{ l))}
+  
+\NormalTok{  b\_u }\OtherTok{\textless{}{-}}\NormalTok{ new\_edx }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{left\_join}\NormalTok{(b\_i, }\AttributeTok{by=}\StringTok{\textquotesingle{}movieId\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{group\_by}\NormalTok{(userId) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{summarize}\NormalTok{(}\AttributeTok{b\_u =} \FunctionTok{sum}\NormalTok{(rating }\SpecialCharTok{{-}}\NormalTok{ b\_i }\SpecialCharTok{{-}}\NormalTok{ mu)}\SpecialCharTok{/}\NormalTok{(}\FunctionTok{n}\NormalTok{() }\SpecialCharTok{+}\NormalTok{l))}
+  
+\NormalTok{  predicted }\OtherTok{\textless{}{-}}\NormalTok{ new\_edx }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{left\_join}\NormalTok{(b\_i, }\AttributeTok{by =} \StringTok{"movieId"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{left\_join}\NormalTok{(b\_u, }\AttributeTok{by =} \StringTok{"userId"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{pred =}\NormalTok{ mu }\SpecialCharTok{+}\NormalTok{ b\_i }\SpecialCharTok{+}\NormalTok{  b\_u) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ .}\SpecialCharTok{$}\NormalTok{pred}
+  
+  \FunctionTok{return}\NormalTok{(}\FunctionTok{RMSE}\NormalTok{(predicted, new\_edx}\SpecialCharTok{$}\NormalTok{rating))}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+Plot Lambda VS RMSE values:
+\includegraphics{MovieLens-Final_files/figure-latex/lambdaplot-1.pdf}
+
+As seen in the plot, the lambda that minimizes the RMSE is lambda = 0.5.
+The test on the validation set is as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(validation}\SpecialCharTok{$}\NormalTok{rating)}
+\NormalTok{l }\OtherTok{\textless{}{-}} \FloatTok{0.15}
+\NormalTok{b\_i }\OtherTok{\textless{}{-}}\NormalTok{ validation }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(movieId) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{b\_i =} \FunctionTok{sum}\NormalTok{(rating }\SpecialCharTok{{-}}\NormalTok{ mu)}\SpecialCharTok{/}\NormalTok{(}\FunctionTok{n}\NormalTok{() }\SpecialCharTok{+}\NormalTok{ l))}
+
+\NormalTok{b\_u }\OtherTok{\textless{}{-}}\NormalTok{ validation }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{left\_join}\NormalTok{(b\_i, }\AttributeTok{by=}\StringTok{\textquotesingle{}movieId\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(userId) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{b\_u =} \FunctionTok{sum}\NormalTok{(rating }\SpecialCharTok{{-}}\NormalTok{ b\_i }\SpecialCharTok{{-}}\NormalTok{ mu)}\SpecialCharTok{/}\NormalTok{(}\FunctionTok{n}\NormalTok{() }\SpecialCharTok{+}\NormalTok{l))}
+
+\NormalTok{predicted }\OtherTok{\textless{}{-}}\NormalTok{ validation }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{left\_join}\NormalTok{(b\_i, }\AttributeTok{by =} \StringTok{"movieId"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{left\_join}\NormalTok{(b\_u, }\AttributeTok{by =} \StringTok{"userId"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{pred =}\NormalTok{ mu }\SpecialCharTok{+}\NormalTok{ b\_i }\SpecialCharTok{+}\NormalTok{  b\_u) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ .}\SpecialCharTok{$}\NormalTok{pred}
+
+\FunctionTok{rmse\_function}\NormalTok{(predicted, validation}\SpecialCharTok{$}\NormalTok{rating)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8253432
+\end{verbatim}
+
+Final RMSE is calculated to be 0.8253432.
+
+\hypertarget{finding}{%
+\subsection{Finding}\label{finding}}
+
+Finding in this project that this machine learning algorithm
+successfully minimized the RMSE from a list of possible lambdas. The
+RMSE was calculated to be 0.8253432 using the Movie ID and User ID.
+
+\end{document}
