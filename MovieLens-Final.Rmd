@@ -146,7 +146,7 @@ Preview of the updated training set:
 head(new_edx)
 ```
 
-## Visulization
+## Visualization
 
 Plot relationship between movie rating and movie age averages:
 
